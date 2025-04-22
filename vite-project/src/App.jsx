@@ -4,13 +4,14 @@ import Home from './Components/Home'
 import MainDashboard from './Components/AdminHandle/MainDashboard'
 import Card1 from './Components/Cards/CardComponents/Card1'
 import AddCard from './Components/Cards/AddCard'
+import FormContainer from './Components/Forms/MultiStepForm'
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
       <Routes>
-        <Route path='/' Component={AddCard}/>
+        <Route path='/' Component={FormContainer}/>
       </Routes>
       </BrowserRouter>
     </div>

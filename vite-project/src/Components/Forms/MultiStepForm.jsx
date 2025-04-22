@@ -1,84 +1,134 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
+import Card1 from '../Cards/CardComponents/Card1';
+import CriteriaForm from '../Cards/CardComponents/Card2';
+import Card3 from '../Cards/CardComponents/Card3';
+import Card4 from '../Cards/CardComponents/Card4';
+import Card5 from '../Cards/CardComponents/Card5';
 
-// Importing the step components
-import FormStep1 from './components/FormStep1';
-import FormStep2 from './components/FormStep2';
-import ReviewStep from './components/ReviewStep';
-
-const MultiStepForm = () => {
-  // Step 1: Manage the form data state
-  const [step, setStep] = useState(1);
+const FormContainer = () => {
+  // Initialize form state
   const [formData, setFormData] = useState({
-    features: "",
-    welcomeOffers: "",
-    publishedBy: "",
-    publishedAt: "",
-    payout: "",
+    component1: {},
+    component2: {},
+    component3: {},
+    component4: {},
+    component5: {},
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Update form data for a specific component
+  const updateFormData = (componentName, data) => {
+    setFormData(prev => ({
+      ...prev,
+      [componentName]: data
+    }));
   };
 
-  // Handle next and previous buttons
-  const handleNext = () => setStep(step + 1);
-  const handlePrevious = () => setStep(step - 1);
-
-  // Handle submit
+  // Handle form submission
   const handleSubmit = async () => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+    
     try {
-      const response = await axios.post(
-        "https://your-backend-api-endpoint.com/submit",
-        formData
-      );
-      console.log("Form submitted successfully:", response.data);
+      // Combine all component data
+      const completeData = {
+        ...formData.component1,
+        ...formData.component2,
+        ...formData.component3,
+        ...formData.component4,
+        ...formData.component5,
+      };
+
+      // Send data via Axios
+      const response = await axios.post('https://your-api-endpoint.com/submit', completeData);
+      
+      setSubmitSuccess(true);
+      console.log('Submission successful:', response.data);
     } catch (error) {
-      console.error("There was an error submitting the form:", error);
+      setSubmitError(error.message || 'Failed to submit form');
+      console.error('Submission error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  // Navigation between components
+  const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 5));
+  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
+
   return (
-    <div className="min-h-screen bg-white p-6">
-      <h2 className="text-2xl font-semibold mb-6">Multi-Step Form</h2>
-
-      {/* Render different steps based on current step */}
-      {step === 1 && (
-        <FormStep1 formData={formData} handleChange={handleChange} />
+    <div className="form-container">
+      {submitSuccess ? (
+        <div className="success-message">
+          Form submitted successfully!
+        </div>
+      ) : (
+        <>
+          <div className="form-progress">
+            Step {currentStep} of 5
+          </div>
+          
+          {currentStep === 1 && (
+            <Card1 
+              data={formData.component1} 
+              updateData={(data) => updateFormData('component1', data)} 
+              nextStep={nextStep}
+            />
+          )}
+          
+          {currentStep === 2 && (
+            <CriteriaForm 
+              data={formData.component2} 
+              updateData={(data) => updateFormData('component2', data)} 
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          )}
+          
+          {currentStep === 3 && (
+            <Card3 
+              data={formData.component3} 
+              updateData={(data) => updateFormData('component3', data)} 
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          )}
+          
+          {currentStep === 4 && (
+            <Card4 
+              data={formData.component4} 
+              updateData={(data) => updateFormData('component4', data)} 
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          )}
+          
+          {currentStep === 5 && (
+  <Card5 
+    formData={formData} 
+    prevStep={prevStep}
+    onSubmit={(response) => {
+      
+      setSubmitSuccess(true);
+      console.log('Form submitted:', response);
+    }}
+  />
+)}
+          
+          {submitError && (
+            <div className="error-message">
+              {submitError}
+            </div>
+          )}
+        </>
       )}
-      {step === 2 && (
-        <FormStep2 formData={formData} handleChange={handleChange} />
-      )}
-      {step === 3 && <ReviewStep formData={formData} />}
-
-      {/* Navigation Buttons */}
-      <div className="flex justify-between mt-6">
-        {step > 1 && (
-          <button
-            onClick={handlePrevious}
-            className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600"
-          >
-            Previous
-          </button>
-        )}
-        {step < 3 ? (
-          <button
-            onClick={handleNext}
-            className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
-          >
-            Next
-          </button>
-        ) : (
-          <button
-            onClick={handleSubmit}
-            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600"
-          >
-            Submit
-          </button>
-        )}
-      </div>
     </div>
   );
 };
 
-export default MultiStepForm;
+export default FormContainer;

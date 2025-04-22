@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Card1 = () => {
-  const [formData, setFormData] = useState({
+const Card1 = ({ data, updateData, nextStep }) => {
+  const [localData, setLocalData] = useState({
     cardName: '',
     cardSlug: '',
     cardType: 'HDFC',
@@ -20,13 +20,24 @@ const Card1 = () => {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
+  // Initialize with parent data when component mounts
+  useEffect(() => {
+    if (data) {
+      setLocalData(data);
+      if (data.imageFile) {
+        setFile(data.imageFile);
+        setPreview(data.imagePreview);
+      }
+    }
+  }, [data]);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    setLocalData((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleRatingChange = (rating) => {
-    setFormData((prev) => ({ ...prev, moneybipRating: rating }));
+    setLocalData((prev) => ({ ...prev, moneybipRating: rating }));
   };
 
   const handleFileChange = (e) => {
@@ -50,21 +61,23 @@ const Card1 = () => {
     e.preventDefault();
   };
 
-  const handleSubmit = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-
-    const fullFormData = {
-      ...formData,
+    
+    // Prepare data to send to parent
+    const componentData = {
+      ...localData,
       imageFile: file,
+      imagePreview: preview
     };
-
-    console.log(fullFormData);
-    // Submit logic goes here
+    
+    updateData(componentData);
+    nextStep();
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleNext}
       className="bg-white p-4 md:p-6 rounded-md shadow-md max-w-7xl mx-auto h-full"
     >
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Offer Information</h2>
@@ -129,9 +142,10 @@ const Card1 = () => {
                 id={id}
                 type="text"
                 className="mt-1 block h-12 w-full p-3 rounded-md border border-gray-300 shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
-                value={formData[id]}
+                value={localData[id]}
                 placeholder={placeholder}
                 onChange={handleChange}
+                required
               />
             </div>
           )
@@ -145,8 +159,9 @@ const Card1 = () => {
           <select
             id="cardType"
             className="mt-1 block h-12 w-full p-3 rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-500"
-            value={formData.cardType}
+            value={localData.cardType}
             onChange={handleChange}
+            required
           >
             <option>HDFC</option>
             <option>SBI</option>
@@ -165,11 +180,12 @@ const Card1 = () => {
               <select
                 id={id}
                 className="mt-1 block h-12 w-full p-3 rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-500"
-                value={formData[id]}
+                value={localData[id]}
                 onChange={handleChange}
+                required
               >
                 {options.map((opt) => (
-                  <option key={opt}>{opt}</option>
+                  <option key={opt} value={opt}>{opt}</option>
                 ))}
               </select>
             </div>
@@ -188,9 +204,10 @@ const Card1 = () => {
                 id={id}
                 type="text"
                 className="mt-1 block h-12 w-full p-3 rounded-md border border-gray-300 shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
-                value={formData[id]}
+                value={localData[id]}
                 placeholder={placeholder}
                 onChange={handleChange}
+                required
               />
             </div>
           )
@@ -204,12 +221,13 @@ const Card1 = () => {
           <select
             id="cardStatus"
             className="mt-1 block h-12 w-full p-3 rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-500"
-            value={formData.cardStatus}
+            value={localData.cardStatus}
             onChange={handleChange}
+            required
           >
-            <option>Select Card Type</option>
-            <option>Active</option>
-            <option>Inactive</option>
+            <option value="Select Card Type">Select Card Type</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
         </div>
 
@@ -222,7 +240,7 @@ const Card1 = () => {
                 key={star}
                 onClick={() => handleRatingChange(star)}
                 className={`h-5 w-5 cursor-pointer ${
-                  formData.moneybipRating >= star ? 'text-yellow-400' : 'text-gray-300'
+                  localData.moneybipRating >= star ? 'text-yellow-400' : 'text-gray-300'
                 }`}
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -242,7 +260,7 @@ const Card1 = () => {
             id="ratingReviewHeading"
             type="text"
             className="mt-1 block h-12 w-full p-3 rounded-md border border-gray-300 shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
-            value={formData.ratingReviewHeading}
+            value={localData.ratingReviewHeading}
             placeholder="Enter Review Heading"
             onChange={handleChange}
           />
@@ -258,8 +276,9 @@ const Card1 = () => {
             rows={3}
             className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3"
             placeholder="Enter Review Description"
-            value={formData.ratingReviewDescription}
+            value={localData.ratingReviewDescription}
             onChange={handleChange}
+            maxLength={200}
           />
         </div>
       </div>

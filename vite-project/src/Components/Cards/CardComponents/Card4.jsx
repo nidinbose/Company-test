@@ -1,52 +1,56 @@
-import React, { useState } from "react";
-import axios from "axios"; // Import Axios
+import React, { useState, useEffect } from "react";
 
-const Card4 = () => {
-  const [features, setFeatures] = useState("");
-  const [welcomeOffers, setWelcomeOffers] = useState("");
-  const [publishedBy, setPublishedBy] = useState("");
-  const [publishedAt, setPublishedAt] = useState("");
-  const [payout, setPayout] = useState("");
+const Card4 = ({ data, updateData, nextStep, prevStep }) => {
+  const [localData, setLocalData] = useState({
+    features: "",
+    welcomeOffers: "",
+    publishedBy: "",
+    publishedAt: "",
+    payout: ""
+  });
 
-  const handleSubmit = async () => {
-    const formData = {
-      features,
-      welcomeOffers,
-      publishedBy,
-      publishedAt,
-      payout,
-    };
-
-    try {
-      // Make POST request using Axios
-      const response = await axios.post("https://your-backend-api-endpoint.com/submit", formData);
-
-      // Handle successful response
-      console.log("Form submitted successfully:", response.data);
-      
-      // Optionally handle any other logic on success, like clearing form or redirecting
-    } catch (error) {
-      // Handle error response
-      console.error("There was an error submitting the form:", error);
+  // Initialize with parent data when component mounts
+  useEffect(() => {
+    if (data) {
+      setLocalData(data);
     }
+  }, [data]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLocalData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleNext = (e) => {
+    e.preventDefault();
+    updateData(localData);
+    nextStep();
+  };
+
+  const handlePrevious = (e) => {
+    e.preventDefault();
+    updateData(localData);
+    prevStep();
   };
 
   return (
     <div className="min-h-screen bg-white p-6">
       <h2 className="text-2xl font-semibold mb-6">Description</h2>
 
-      <div className="space-y-6">
+      <form onSubmit={handleNext} className="space-y-6">
         {/* Features */}
         <div>
           <label className="block font-medium mb-1">
             Features<span className="text-red-500">*</span>
           </label>
           <textarea
-            value={features}
-            onChange={(e) => setFeatures(e.target.value)}
+            name="features"
+            value={localData.features}
+            onChange={handleChange}
             placeholder="Write feature details here..."
             rows="6"
             className="w-full border border-gray-300 p-2 rounded-md resize-none"
+            required
           ></textarea>
         </div>
 
@@ -56,11 +60,13 @@ const Card4 = () => {
             Welcome Offers<span className="text-red-500">*</span>
           </label>
           <textarea
-            value={welcomeOffers}
-            onChange={(e) => setWelcomeOffers(e.target.value)}
+            name="welcomeOffers"
+            value={localData.welcomeOffers}
+            onChange={handleChange}
             placeholder="Describe welcome offers..."
             rows="6"
             className="w-full border border-gray-300 p-2 rounded-md resize-none"
+            required
           ></textarea>
         </div>
 
@@ -70,8 +76,9 @@ const Card4 = () => {
             <label className="block font-medium mb-1">Published By</label>
             <input
               type="text"
-              value={publishedBy}
-              onChange={(e) => setPublishedBy(e.target.value)}
+              name="publishedBy"
+              value={localData.publishedBy}
+              onChange={handleChange}
               placeholder="Placeholder"
               className="w-full border border-gray-300 p-2 rounded-md"
             />
@@ -81,8 +88,9 @@ const Card4 = () => {
             <label className="block font-medium mb-1">Published At</label>
             <input
               type="date"
-              value={publishedAt}
-              onChange={(e) => setPublishedAt(e.target.value)}
+              name="publishedAt"
+              value={localData.publishedAt}
+              onChange={handleChange}
               placeholder="DD-MM-YYYY"
               className="w-full border border-gray-300 p-2 rounded-md"
             />
@@ -92,8 +100,9 @@ const Card4 = () => {
             <label className="block font-medium mb-1">Payout</label>
             <input
               type="text"
-              value={payout}
-              onChange={(e) => setPayout(e.target.value)}
+              name="payout"
+              value={localData.payout}
+              onChange={handleChange}
               placeholder="Placeholder"
               className="w-full border border-gray-300 p-2 rounded-md"
             />
@@ -103,19 +112,20 @@ const Card4 = () => {
         {/* Buttons */}
         <div className="flex justify-end gap-4 mt-6">
           <button
+            type="button"
+            onClick={handlePrevious}
             className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600"
-            onClick={() => console.log("Previous clicked")}
           >
             Previous
           </button>
           <button
+            type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
-            onClick={handleSubmit}
           >
             Next
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
