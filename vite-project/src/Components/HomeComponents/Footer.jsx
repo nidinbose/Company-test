@@ -4,14 +4,13 @@ const Footer = () => {
   return (
     <footer className="bg-indigo-900 text-gray-100 overlow-x-hidden">
       <div className=" mx-auto ">
-            <div className="text-center mb-12 bg-pink-500 w-full h-38">
+            <div className="text-center mb-12 bg-rose-400 w-full h-38 flex items-center justify-center">
           <h2 className="text-3xl font-bold mb-4">Having Trouble Choosing A Product? Let's Connect</h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
+       
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 max-w-7xl mx-auto">
-          {/* Address & Contact */}
-          <div className="lg:col-span-2">
+                  <div className="lg:col-span-2">
             <h3 className="text-lg font-semibold mb-4">Address</h3>
             <address className="not-italic">
               <p>No accompany</p>

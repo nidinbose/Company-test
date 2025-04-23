@@ -5,7 +5,7 @@ import Bottom from './HomeComponents/Bottom'
 
 const Home = () => {
   return (
-    <div className='bg-gray-100'>
+    <div className='bg-gray-50'>
       <Top/>
         <Landing/>
         <Bottom/>

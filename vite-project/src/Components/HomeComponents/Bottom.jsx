@@ -2,17 +2,27 @@ import React from 'react';
 
 const CreditCardInfo = () => {
   return (
-    <div className="bg-white min-h-screen py-12 px-4 md:px-16 lg:px-32 text-gray-800 leading-relaxed">
-      <div className="bg-rose-400 text-white rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-6 shadow-lg">
-        <img src="/hero-img.png" alt="Help Choosing" className="w-32 md:w-48" />
-        <div className="flex-1 text-center md:text-left">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">Having Trouble Choosing A Product?</h2>
-          <p className="text-sm md:text-base">Let us guide you to the right credit card for your needs.</p>
-          <button className="bg-black hover:bg-gray-800 text-white px-6 py-2 mt-4 rounded-full transition-all">
-            Contact Us ⟶
-          </button>
-        </div>
-      </div>
+    <div className="bg-gray-50 min-h-screen py-12 px-4 md:px-16 lg:px-32 text-gray-800 leading-relaxed">
+   <div className="bg-rose-400 text-white rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-8 shadow-lg">
+  <img 
+    src="/hero-img.png" 
+    alt="Help Choosing" 
+    className="w-24 sm:w-32 md:w-40 lg:w-48"
+  />
+  <div className="flex-1 text-center md:text-left space-y-2 sm:space-y-3">
+    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
+      Having Trouble Choosing A Product?
+    </h2>
+    <p className="text-xs sm:text-sm md:text-base lg:text-lg">
+      Let us guide you to the right credit card for your needs.
+    </p>
+    <div className="flex justify-center md:justify-start">
+      <button className="bg-black hover:bg-gray-800 text-white px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 md:py-2.5 rounded-full transition-all flex items-center gap-1 text-sm sm:text-base">
+        Contact Us <span className="hidden sm:inline">⟶</span>
+      </button>
+    </div>
+  </div>
+</div>
 
       <div className="mt-12 space-y-10 text-sm md:text-base text-gray-700 flex flex-col items-start max-w-full">
      
