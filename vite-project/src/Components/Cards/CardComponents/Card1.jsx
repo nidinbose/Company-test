@@ -91,7 +91,6 @@ const Card1 = ({ data, updateData, nextStep }) => {
   const handleNext = (e) => {
     e.preventDefault();
     
-    // Prepare data to send to parent
     const componentData = {
       ...localData,
       imageFile: file,

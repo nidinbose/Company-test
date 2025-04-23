@@ -15,6 +15,7 @@ app.use(cors({
     credentials: true
   }));
 app.use('/api',router)
+app.use('/uploads', express.static('uploads'));
 
 
 connection().then(()=>{

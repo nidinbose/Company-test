@@ -9,5 +9,7 @@ router.post('/addcard', upload.fields([
     { name: 'cardImage', maxCount: 1 },
     { name: 'ogImage', maxCount: 1 }
   ]), addCard);
-  
+
+  router.route('/getcard').get(Card.getCards)
+  router.route('/getbyid/:id').get(Card.getCardById)
 export default router
