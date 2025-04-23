@@ -15,8 +15,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
     loungeService: "",
     fraudLiability: "",
   });
-
-  // Initialize with parent data when component mounts
   useEffect(() => {
     if (data) {
       setLocalData(data);
@@ -46,8 +44,7 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
         <h2 className="text-2xl font-semibold mb-6">Criteria</h2>
         <form onSubmit={handleNext}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Annual Fee */}
-            <div>
+                  <div>
               <label className="block font-medium mb-1">
                 Annual Fee (0 - 60,000)<span className="text-red-500">*</span>
               </label>
@@ -62,8 +59,7 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
               />
             </div>
 
-            {/* Joining Fee */}
-            <div>
+                        <div>
               <label className="block font-medium mb-1">
                 Joining Fee (0 - 2,00,000)<span className="text-red-500">*</span>
               </label>
@@ -78,7 +74,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
               />
             </div>
 
-            {/* Foreign Transaction Percentage */}
             <div>
               <label className="block font-medium mb-1">
                 Foreign Transaction Percentage (0% - 100%)<span className="text-red-500">*</span>
@@ -95,8 +90,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
                 required
               />
             </div>
-
-            {/* Annual Percentage Rate */}
             <div>
               <label className="block font-medium mb-1">
                 Annual Percentage Rate (0.00% - 52.80%)<span className="text-red-500">*</span>
@@ -114,8 +107,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
                 required
               />
             </div>
-
-            {/* Credit Score */}
             <div>
               <label className="block font-medium mb-1">Credit Score</label>
               <div className="flex gap-2">
@@ -137,8 +128,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
                 />
               </div>
             </div>
-
-            {/* User Age Group */}
             <div>
               <label className="block font-medium mb-1">User Age Group</label>
               <div className="flex gap-2">
@@ -161,8 +150,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
                 />
               </div>
             </div>
-
-            {/* Min Monthly Income */}
             <div>
               <label className="block font-medium mb-1">
                 Min Monthly Income<span className="text-red-500">*</span>
@@ -177,8 +164,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
                 required
               />
             </div>
-
-            {/* Max Monthly Income */}
             <div>
               <label className="block font-medium mb-1">
                 Max Monthly Income<span className="text-red-500">*</span>
@@ -194,7 +179,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
               />
             </div>
 
-            {/* Lounge Service */}
             <div>
               <label className="block font-medium mb-1">
                 Lounge Service<span className="text-red-500">*</span>
@@ -211,8 +195,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
                 <option value="No">No</option>
               </select>
             </div>
-
-            {/* Fraud Liability */}
             <div>
               <label className="block font-medium mb-1">
                 Fraud Liability<span className="text-red-500">*</span>
@@ -232,7 +214,6 @@ const CriteriaForm = ({ data, updateData, nextStep, prevStep }) => {
             </div>
           </div>
 
-          {/* Buttons */}
           <div className="flex justify-end gap-4 mt-8">
             <button 
               onClick={handlePrevious}

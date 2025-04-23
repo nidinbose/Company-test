@@ -21,7 +21,6 @@ const Card1 = ({ data, updateData, nextStep }) => {
   const [preview, setPreview] = useState(null);
   const [base64Image, setBase64Image] = useState('');
 
-  // Initialize with parent data when component mounts
   useEffect(() => {
     if (data) {
       setLocalData(data);
@@ -156,8 +155,7 @@ const Card1 = ({ data, updateData, nextStep }) => {
       )}
     </div>
 
-    {/* Form Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       {[{ id: 'cardName', label: 'Card Name *', placeholder: 'Enter Card Name' },
         { id: 'cardSlug', label: 'Card Slug *', placeholder: 'Enter Card Slug' }].map(
         ({ id, label, placeholder }) => (
@@ -178,7 +176,6 @@ const Card1 = ({ data, updateData, nextStep }) => {
         )
       )}
 
-      {/* Card Type */}
       <div>
         <label htmlFor="cardType" className="block text-sm font-medium text-gray-700">
           Card Type *
@@ -240,8 +237,7 @@ const Card1 = ({ data, updateData, nextStep }) => {
         )
       )}
 
-      {/* Card Status */}
-      <div>
+          <div>
         <label htmlFor="cardStatus" className="block text-sm font-medium text-gray-700">
           Card Status *
         </label>
@@ -257,8 +253,6 @@ const Card1 = ({ data, updateData, nextStep }) => {
           <option value="Inactive">Inactive</option>
         </select>
       </div>
-
-      {/* Rating */}
       <div>
         <label className="block text-sm font-medium text-gray-700">Moneybip Rating *</label>
         <div className="flex space-x-1 mt-1">
@@ -278,7 +272,7 @@ const Card1 = ({ data, updateData, nextStep }) => {
         </div>
       </div>
 
-      {/* Review Heading */}
+    
       <div>
         <label htmlFor="ratingReviewHeading" className="block text-sm font-medium text-gray-700">
           Rating Review Heading
@@ -293,8 +287,7 @@ const Card1 = ({ data, updateData, nextStep }) => {
         />
       </div>
 
-      {/* Review Description */}
-      <div className="md:col-span-2">
+          <div className="md:col-span-2">
         <label htmlFor="ratingReviewDescription" className="block text-sm font-medium text-gray-700">
           Rating Review Description (max 200 letters)
         </label>

@@ -9,8 +9,7 @@ const Card4 = ({ data, updateData, nextStep, prevStep }) => {
     payout: ""
   });
 
-  // Initialize with parent data when component mounts
-  useEffect(() => {
+   useEffect(() => {
     if (data) {
       setLocalData(data);
     }
@@ -38,8 +37,7 @@ const Card4 = ({ data, updateData, nextStep, prevStep }) => {
       <h2 className="text-2xl font-semibold mb-6">Description</h2>
 
       <form onSubmit={handleNext} className="space-y-6">
-        {/* Features */}
-        <div>
+              <div>
           <label className="block font-medium mb-1">
             Features<span className="text-red-500">*</span>
           </label>
@@ -53,8 +51,6 @@ const Card4 = ({ data, updateData, nextStep, prevStep }) => {
             required
           ></textarea>
         </div>
-
-        {/* Welcome Offers */}
         <div>
           <label className="block font-medium mb-1">
             Welcome Offers<span className="text-red-500">*</span>
@@ -70,8 +66,7 @@ const Card4 = ({ data, updateData, nextStep, prevStep }) => {
           ></textarea>
         </div>
 
-        {/* Bottom Row: Published By, Published At, Payout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block font-medium mb-1">Published By</label>
             <input
@@ -109,8 +104,7 @@ const Card4 = ({ data, updateData, nextStep, prevStep }) => {
           </div>
         </div>
 
-        {/* Buttons */}
-        <div className="flex justify-end gap-4 mt-6">
+          <div className="flex justify-end gap-4 mt-6">
           <button
             type="button"
             onClick={handlePrevious}

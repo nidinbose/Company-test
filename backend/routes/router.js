@@ -12,4 +12,6 @@ router.post('/addcard', upload.fields([
 
   router.route('/getcard').get(Card.getCards)
   router.route('/getbyid/:id').get(Card.getCardById)
+  router.route('/delete/:id').delete(Card.deleteCardById)
+  router.route('/update/:id').put(Card.updateCardById)
 export default router

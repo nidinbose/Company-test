@@ -9,7 +9,6 @@ const Card3 = ({ data, updateData, nextStep, prevStep }) => {
     ogImagePreview: null
   });
 
-  // Initialize with parent data when component mounts
   useEffect(() => {
     if (data) {
       setLocalData(data);
@@ -50,8 +49,7 @@ const Card3 = ({ data, updateData, nextStep, prevStep }) => {
       <h2 className="text-2xl font-semibold mb-6">SEO details</h2>
 
       <form onSubmit={handleNext} className="space-y-6">
-        {/* SEO Title */}
-        <div>
+              <div>
           <label className="block font-medium mb-1">
             SEO Title<span className="text-red-500">*</span>
           </label>
@@ -65,8 +63,6 @@ const Card3 = ({ data, updateData, nextStep, prevStep }) => {
             required
           />
         </div>
-
-        {/* SEO Keywords */}
         <div>
           <label className="block font-medium mb-1">
             SEO Keywords<span className="text-red-500">*</span>
@@ -81,8 +77,6 @@ const Card3 = ({ data, updateData, nextStep, prevStep }) => {
             required
           />
         </div>
-
-        {/* SEO Description */}
         <div>
           <label className="block font-medium mb-1">
             SEO Description<span className="text-red-500">*</span>
@@ -97,8 +91,6 @@ const Card3 = ({ data, updateData, nextStep, prevStep }) => {
             required
           ></textarea>
         </div>
-
-        {/* OG Image Upload */}
         <div>
           <label className="block font-medium mb-2">
             SEO OG image<span className="text-red-500">*</span>
@@ -135,8 +127,6 @@ const Card3 = ({ data, updateData, nextStep, prevStep }) => {
             </p>
           )}
         </div>
-
-        {/* Buttons */}
         <div className="flex justify-end gap-4 mt-6">
           <button 
             type="button"

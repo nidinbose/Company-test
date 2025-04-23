@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const Card5 = ({ formData, prevStep, onSubmit }) => {
-  // Combine all data from previous components
+
   const allData = {
     ...formData.component1,
     ...formData.component2,
@@ -12,15 +12,11 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
 
   const handleSubmit = async () => {
     try {
-      // Create FormData to handle file uploads
-      const formDataToSend = new FormData();
+          const formDataToSend = new FormData();
       
-      // Append all regular fields
-      Object.entries(allData).forEach(([key, value]) => {
-        // Skip file fields and previews (we'll handle them separately)
+           Object.entries(allData).forEach(([key, value]) => {
         if (!['imageFile', 'ogImage', 'imagePreview', 'ogImagePreview', 'imageBase64'].includes(key)) {
-          // Convert arrays and objects to JSON strings
-          if (typeof value === 'object' && value !== null && !(value instanceof File)) {
+                  if (typeof value === 'object' && value !== null && !(value instanceof File)) {
             formDataToSend.append(key, JSON.stringify(value));
           } else if (value !== null && value !== undefined) {
             formDataToSend.append(key, value);
@@ -28,24 +24,20 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
         }
       });
 
-      // Handle image upload - prefer Base64 if available, otherwise use file
-      if (allData.imageBase64) {
-        // Send Base64 string
-        formDataToSend.append('cardImageBase64', allData.imageBase64);
+          if (allData.imageBase64) {
+             formDataToSend.append('cardImageBase64', allData.imageBase64);
       } else if (formData.component1.imageFile) {
-        // Fallback to file upload if Base64 not available
+      
         formDataToSend.append('cardImage', formData.component1.imageFile);
       }
 
-      // Handle OG image upload
       if (formData.component3.ogImage) {
         formDataToSend.append('ogImage', formData.component3.ogImage);
       }
 
-      // Log what we're sending (for debugging)
+     
       console.log('Submitting form data:', Object.fromEntries(formDataToSend.entries()));
 
-      // Submit to backend
       const response = await axios.post('http://localhost:3003/api/addcard', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -54,12 +46,10 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
         
       });
 
-      // Call parent's onSubmit handler with the response
       onSubmit(response.data);
     } catch (error) {
       console.error('Submission error:', error);
       
-      // Enhanced error handling
       let errorMessage = 'Error submitting form. Please try again.';
       if (error.response) {
         errorMessage = error.response.data.message || 
@@ -74,7 +64,6 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
     }
   };
 
-  // Helper function to render field value with fallback
   const renderField = (value, suffix = '', isPercentage = false) => {
     if (value === null || value === undefined || value === '') {
       return 'Not provided';
@@ -87,8 +76,7 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
       <h2 className="text-2xl font-semibold mb-6">Review and Submit</h2>
       
       <div className="space-y-8">
-        {/* Card Information Section */}
-        <div className="border-b pb-4">
+            <div className="border-b pb-4">
           <h3 className="text-lg font-medium mb-4">1. Card Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -119,8 +107,6 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
             )}
           </div>
         </div>
-
-        {/* Criteria Section */}
         <div className="border-b pb-4">
           <h3 className="text-lg font-medium mb-4">2. Criteria</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -155,8 +141,7 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
           </div>
         </div>
 
-        {/* SEO Details Section */}
-        <div className="border-b pb-4">
+              <div className="border-b pb-4">
           <h3 className="text-lg font-medium mb-4">3. SEO Details</h3>
           <div className="space-y-4">
             <div>
@@ -184,8 +169,7 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
           </div>
         </div>
 
-        {/* Description Section */}
-        <div className="border-b pb-4">
+             <div className="border-b pb-4">
           <h3 className="text-lg font-medium mb-4">4. Description</h3>
           <div className="space-y-4">
             <div>
@@ -213,8 +197,7 @@ const Card5 = ({ formData, prevStep, onSubmit }) => {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-between mt-8">
+            <div className="flex justify-between mt-8">
           <button
             onClick={prevStep}
             className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"

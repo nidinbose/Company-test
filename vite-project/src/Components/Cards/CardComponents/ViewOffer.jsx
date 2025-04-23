@@ -46,8 +46,7 @@ const ViewOffer = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 p-4">
+        <aside className="w-64 bg-white border-r border-gray-200 p-4">
         <div className="mb-6">
           <h2 className="text-lg font-bold text-gray-800">Quick Links</h2>
           <ul className="mt-4 space-y-2">
@@ -66,31 +65,6 @@ const ViewOffer = () => {
           </ul>
         </div>
 
-        <div className="mb-6">
-          <h2 className="text-lg font-bold text-gray-800">Card Details</h2>
-          <div className="mt-4 space-y-4">
-            <div>
-              <p className="text-sm text-gray-500">Status</p>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                card.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
-                {card.status}
-              </span>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Provider</p>
-              <p className="font-medium">{card.providerName || 'N/A'}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Category</p>
-              <p className="font-medium">{card.categoryName || 'N/A'}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Last Updated</p>
-              <p className="font-medium">3 days ago</p>
-            </div>
-          </div>
-        </div>
 
         <div>
           <h2 className="text-lg font-bold text-gray-800">Actions</h2>
@@ -114,10 +88,8 @@ const ViewOffer = () => {
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-6 overflow-auto">
-        {/* Breadcrumb */}
-        <div className="mb-6">
+        <main className="flex-1 p-6 overflow-auto">
+          <div className="mb-6">
           <div className="flex items-center text-sm text-gray-600">
             <Link to="/" className="hover:text-blue-600">Home</Link>
             <span className="mx-2">•</span>
@@ -125,41 +97,43 @@ const ViewOffer = () => {
             <span className="mx-2">•</span>
             <span className="text-gray-800 font-medium">View Offers</span>
           </div>
-         <div className='flex gap-3'>
+         <div className='flex gap-3 flex-col'>
          <img src={card.cardImage} alt="loading" />
-         <h1 className="text-2xl font-bold text-gray-800 mt-2">{card.cardName}</h1>
+         <div className='flex gap-3 items-center'>
+         <h1 className="text-xl font-bold text-gray-800 mt-2">{card.cardName}</h1>
+          <h1 className='text-sm font-light text-gray-800 mt-2'> Created at :{card.publishedAt}</h1>
+     
+         </div>
+        
          </div>
         </div>
-
-        {/* Card Sections */}
         <div className="space-y-6">
-          {/* Card Information Section */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+                  <div className="bg-white rounded-lg border p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Card Information</h3>
             <p className="text-gray-600 mb-4">Please check out given information</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Category Name</p>
                 <p className="font-medium">{card.categoryName || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Provider Name</p>
                 <p className="font-medium">{card.providerName || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Service</p>
                 <p className="font-medium">{card.service || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Payout</p>
                 <p className="font-medium">{card.payout || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Commission</p>
                 <p className="font-medium">{card.commission || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Card Link</p>
                 <a href={card.cardLink} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">
                   {card.cardLink ? 'View Link' : 'N/A'}
@@ -168,8 +142,7 @@ const ViewOffer = () => {
             </div>
           </div>
 
-          {/* Description Section */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+                 <div className="bg-white rounded-lg border p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Description</h3>
             <p className="text-gray-600 mb-2">Please check out given information</p>
             <p className="text-gray-700">
@@ -177,53 +150,52 @@ const ViewOffer = () => {
             </p>
           </div>
 
-          {/* Criteria Section */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+                  <div className="bg-white border p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Criteria</h3>
             <p className="text-gray-600 mb-4">Please check out given information</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Annual Fee</p>
                 <p className="font-medium">{card.annualFee || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Joining Fee</p>
                 <p className="font-medium">{card.joiningFee || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Foreign Transaction Percentage</p>
                 <p className="font-medium">{card.foreignTransactionPercentage || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Annual Percentage Rate</p>
                 <p className="font-medium">{card.annualPercentageRate || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Credit Score (Min - Max)</p>
                 <p className="font-medium">{card.creditScoreMin || '0'} - {card.creditScoreMax || '0'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">User Age Group (Min - Max)</p>
                 <p className="font-medium">{card.userAgeMin || '0'} - {card.userAgeMax || '0'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Monthly Income (Min - Max)</p>
                 <p className="font-medium">{card.monthlyIncomeMin || '0'} - {card.monthlyIncomeMax || '0'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Lounge Service</p>
                 <p className="font-medium">{card.loungeService || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Fraud Liability</p>
                 <p className="font-medium">{card.fraudLiability || 'N/A'}</p>
               </div>
             </div>
           </div>
 
-          {/* Features and Welcome Offers */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+         
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Features</h3>
               <p className="text-gray-600">
@@ -237,47 +209,46 @@ const ViewOffer = () => {
               </p>
             </div>
           </div>
-
-          {/* Published Info */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+<hr />
+          <div className="bg-white border  p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Published Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Published By</p>
                 <p className="font-medium">{card.publishedBy || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Published At</p>
                 <p className="font-medium">
                   {card.publishedAt ? new Date(card.publishedAt).toLocaleDateString() : 'N/A'}
                 </p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">Payout</p>
                 <p className="font-medium">{card.payout || 'N/A'}</p>
               </div>
             </div>
           </div>
-
+   <hr />
        
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white border rounded-lg  p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">SEO Details</h3>
             <p className="text-gray-600 mb-4">Please check out given information</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">SEO Title</p>
                 <p className="font-medium">{card.seoTitle || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">SEO Keywords</p>
                 <p className="font-medium">{card.seoKeywords || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">SEO Description</p>
                 <p className="font-medium">{card.seoDescription || 'N/A'}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded">
+              <div className="bg-white p-3 rounded">
                 <p className="text-sm text-gray-500">SEO OG Image</p>
                 {card.ogImage ? (
                   <img src={card.ogImage} alt="SEO" className="mt-2 max-w-full h-auto rounded" />

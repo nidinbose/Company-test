@@ -4,8 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-indigo-900 text-gray-100 overlow-x-hidden">
       <div className=" mx-auto ">
-        {/* Heading Section */}
-        <div className="text-center mb-12 bg-pink-500 w-full h-38">
+            <div className="text-center mb-12 bg-pink-500 w-full h-38">
           <h2 className="text-3xl font-bold mb-4">Having Trouble Choosing A Product? Let's Connect</h2>
           <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
         </div>
@@ -24,8 +23,6 @@ const Footer = () => {
               <p className="font-semibold">Mail: info@abc.com</p>
             </div>
           </div>
-
-          {/* Products */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Products</h3>
             <ul className="space-y-2">
@@ -35,8 +32,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Tools */}
-          <div>
+                <div>
             <h3 className="text-lg font-semibold mb-4">Tools</h3>
             <ul className="space-y-2">
               <li><a href="#" className="hover:text-blue-600">BMI Calculator</a></li>
@@ -44,8 +40,6 @@ const Footer = () => {
               <li><a href="#" className="hover:text-blue-600">Loan Calculator</a></li>
             </ul>
           </div>
-
-          {/* Resources & Company */}
           <div className="space-y-8">
             <div>
               <h3 className="text-lg font-semibold mb-4">Resources</h3>
@@ -70,8 +64,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Disclaimer & Copyright */}
-        <div className="mt-12 pt-8 border-t border-gray-300">
+            <div className="mt-12 pt-8 border-t border-gray-300">
           <p className="text-sm mb-4">
             Disclaimer: The information on its for general informational purposes and not financial advice. 
             Users should independently verify its accuracy. MoneyBIP is not responsible for external websites 

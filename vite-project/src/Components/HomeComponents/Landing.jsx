@@ -58,16 +58,10 @@ const CreditCardOffer = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-     
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Filters Sidebar - Left Column */}
-          <div className="lg:col-span-3 bg-white rounded-xl shadow-md p-6 h-fit sticky top-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                 <div className="lg:col-span-3 bg-white rounded-xl shadow-md p-6 h-fit sticky top-8">
             <h2 className="text-lg font-semibold border-b pb-2 text-red-600 mb-4">Filters</h2>
-            
-            {/* Provider's Name Filter */}
-            <div className="mb-6">
+                 <div className="mb-6">
               <h3 className="text-md font-semibold mb-3">Provider's Name</h3>
               <div className="space-y-2">
                 {[
@@ -95,8 +89,7 @@ const CreditCardOffer = () => {
                 </button>
               </div>
             </div>
-            
-            {/* Features Filter */}
+        
             <div className="mb-6">
               <h3 className="text-md font-semibold mb-3">Features</h3>
               <ul className="space-y-3 text-sm text-gray-700">
@@ -114,9 +107,7 @@ const CreditCardOffer = () => {
                 </li>
               </ul>
             </div>
-            
-            {/* Welcome Offers */}
-            <div>
+                  <div>
               <h3 className="text-md font-semibold mb-3">Welcome Offers</h3>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start">
@@ -135,8 +126,7 @@ const CreditCardOffer = () => {
             </div>
           </div>
 
-          {/* Cards Grid - Right Column */}
-          <div className="lg:col-span-9 z-50">
+                  <div className="lg:col-span-9 z-50">
             {loading ? (
               <div className="flex justify-center items-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -159,28 +149,25 @@ const CreditCardOffer = () => {
               <div className="space-y-6">
                 {filteredCards.map((card, index) => (
                   <div key={card.id || index} className="bg-white rounded-xl shadow-md overflow-hidden">
-                    {/* Card Header */}
-                    <div className="p-6">
+                                   <div className="p-6">
                       <div className="flex flex-col md:flex-row gap-6">
-                        {/* Card Image */}
-                        <div className="flex-shrink-0">
+                                             <div className="flex-shrink-0">
                           <img
-                            src={card.image || "https://www.cardexpert.in/wp-content/uploads/2020/10/axis-bank-ace-credit-card-1.jpg"}
+                            src={card.cardImage || "https://www.cardexpert.in/wp-content/uploads/2020/10/axis-bank-ace-credit-card-1.jpg"}
                             alt={card.cardName}
                             className="w-64 h-40 object-contain rounded-lg"
                           />
                         </div>
-                        
-                        {/* Card Info */}
+                      
                         <div className="flex-grow">
-                          <h2 className="text-xl font-bold text-indigo-900">{card.cardName}</h2>
+                                                      <h2 className="text-xl font-bold text-indigo-900">{card.cardName}</h2>
                           <p className="text-indigo-900 mb-4">{card.cardSlug}</p>
                           <p className="text-sm text-indigo-900 mb-4">
-                            Elevate your travel experience with exclusive Vistara airline privileges and accelerated rewards on every journey.
+                                                  Elevate your travel experience with exclusive Vistara airline privileges and accelerated rewards on every journey.
                           </p>
                           
                           <div className="flex flex-wrap gap-3 ">
-                            <button className="bg-indigo-900 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition">
+                                             <button className="bg-indigo-900 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition">
                               Apply Now
                             </button>
                             <button className="border border-indigo-900 text-indigo-900 px-4 py-2 rounded-md text-sm hover:bg-blue-50 transition">
@@ -188,9 +175,7 @@ const CreditCardOffer = () => {
                             </button>
                           </div>
                         </div>
-                        
-                        {/* Rating */}
-                        <div className="flex-shrink-0 flex flex-col items-end ">
+                                        <div className="flex-shrink-0 flex flex-col items-end ">
                           <div className="mb-4">
                             <p className="font-bold text-gray-900 text-sm">MoneyBIP Rating</p>
                             <StarRating rating={card.moneybipRating || 4.5} />
@@ -202,9 +187,7 @@ const CreditCardOffer = () => {
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Features Section */}
-                    <div className="border-t px-6 py-4">
+                           <div className="border-t px-6 py-4">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="md:col-span-2">
                           <h3 className="text-lg font-bold text-gray-800 mb-3">Features</h3>
@@ -234,9 +217,7 @@ const CreditCardOffer = () => {
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Welcome Offers */}
-                    <div className="border-t px-6 py-4 bg-white">
+                            <div className="border-t px-6 py-4 bg-white">
                       <h3 className="text-lg font-bold text-gray-800 mb-3">Welcome Offers</h3>
                       <p className="text-sm text-gray-700 mb-3">
                         While specific welcome offers may change over time, typical welcome benefits include:

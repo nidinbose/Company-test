@@ -45,7 +45,7 @@ const Admin = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this card?")) {
       try {
-        await axios.delete(`http://localhost:3003/api/card/${id}`);
+        await axios.delete(`http://localhost:3003/api/delete/${id}`);
         fetchCards(); 
       } catch (err) {
         console.error('Error deleting card:', err);
@@ -84,7 +84,7 @@ const Admin = () => {
           <div className="flex flex-col h-full justify-between">
             <div className="p-5">
               <Link to="/admin" className="flex items-center">
-                {/* <img src="/images/Santics.png" alt="Logo" className="h-10" /> */}
+               
               </Link>
               <nav className="mt-10 space-y-2">
                 <SidebarLink to="/admin" Icon={LuLayoutDashboard} label="Manage links" onClick={closeMobileMenu} />
@@ -178,7 +178,7 @@ const Admin = () => {
                       <tr key={index} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{index + 1}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <img src={card.image} alt="Card" className="h-12 w-auto rounded" />
+                          <img src={card.cardImage} alt="Card" className="h-12 w-auto rounded" />
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{card.cardName}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{card.service}</td>
