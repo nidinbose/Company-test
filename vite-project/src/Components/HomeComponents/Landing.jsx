@@ -1,5 +1,5 @@
-import React ,{useState,useEffect}from 'react';
-import axios from "axios"
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import { Star, StarHalf, StarOff } from 'lucide-react';
 
 const StarRating = ({ rating }) => {
@@ -16,150 +16,244 @@ const StarRating = ({ rating }) => {
       {[...Array(emptyStars)].map((_, i) => (
         <StarOff key={`empty-${i}`} className="w-5 h-5" />
       ))}
-      <span className="ml-2 text-sm text-white">({rating})</span>
+      <span className="ml-2 text-sm text-gray-700">({rating})</span>
     </div>
   );
 };
 
-
 const CreditCardOffer = () => {
-    const [cards, setCards] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-  
-    useEffect(() => {
-      const fetchCards = async () => {
-        try {
-          const res = await axios.get('http://localhost:3003/api/getcard');
-               setCards(res.data.data || res.data);
-          console.log('API Response:', res.data);
-        } catch (err) {
-          console.error('Error fetching cards:', err);
-          setError('Failed to load cards');
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchCards();
-    }, []);
+  const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedBanks, setSelectedBanks] = useState([]);
+  const [expandedFeatures, setExpandedFeatures] = useState(false);
 
+  useEffect(() => {
+    const fetchCards = async () => {
+      try {
+        const res = await axios.get('http://localhost:3003/api/getcard');
+        setCards(res.data.data || res.data);
+      } catch (err) {
+        console.error('Error fetching cards:', err);
+        setError('Failed to load cards');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCards();
+  }, []);
 
-    return (
-    <div className="min-h-screen bg-gray-100  container mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-12  mx-auto ">
-              <div className="bg-white rounded-2xl shadow p-4 space-y-4 col-span-1 h-full">
-          <h2 className="text-lg font-semibold border-b pb-2 text-red-600">Provider’s Name</h2>
-          <div className="space-y-2 text-sm">
-            {[
-              "Yes Bank", "ICICI Bank", "Bank Of Baroda", "IDFC Bank",
-              "HDFC Bank", "Axis Bank", "HSBC Bank", "Kotak Mahindra Bank"
-            ].map((name, index) => (
-              <label key={index} className="flex items-center gap-2">
-                <input type="checkbox" className="accent-blue-600" />
-                <span>{name}</span>
-              </label>
-            ))}
+  const toggleBankSelection = (bankName) => {
+    setSelectedBanks(prev => 
+      prev.includes(bankName) 
+        ? prev.filter(bank => bank !== bankName) 
+        : [...prev, bankName]
+    );
+  };
+
+  const filteredCards = selectedBanks.length > 0
+    ? cards.filter(card => selectedBanks.includes(card.bankName))
+    : cards;
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+     
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Filters Sidebar - Left Column */}
+          <div className="lg:col-span-3 bg-white rounded-xl shadow-md p-6 h-fit sticky top-8">
+            <h2 className="text-lg font-semibold border-b pb-2 text-red-600 mb-4">Filters</h2>
+            
+            {/* Provider's Name Filter */}
+            <div className="mb-6">
+              <h3 className="text-md font-semibold mb-3">Provider's Name</h3>
+              <div className="space-y-2">
+                {[
+                  "Yes Bank", "ICICI Bank", "Bank Of Baroda", "IDFC Bank",
+                  "HDFC Bank", "Axis Bank", "HSBC Bank", "Kotak Mahindra Bank"
+                ].slice(0, expandedFeatures ? undefined : 5).map((name, index) => (
+                  <div key={index} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={`bank-${index}`}
+                      checked={selectedBanks.includes(name)}
+                      onChange={() => toggleBankSelection(name)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor={`bank-${index}`} className="ml-3 text-sm text-gray-700">
+                      {name}
+                    </label>
+                  </div>
+                ))}
+                <button 
+                  onClick={() => setExpandedFeatures(!expandedFeatures)}
+                  className="text-blue-600 text-sm hover:underline"
+                >
+                  {expandedFeatures ? 'See Less' : 'See More'}
+                </button>
+              </div>
+            </div>
+            
+            {/* Features Filter */}
+            <div className="mb-6">
+              <h3 className="text-md font-semibold mb-3">Features</h3>
+              <ul className="space-y-3 text-sm text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>Vistara privileges: Enjoy complimentary Club Vistara Silver membership, airport lounge access</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>Accelerated Rewards: Earn Club Vistara Points on every spend</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>Welcome Benefits: Complimentary Club Vistara Base Points</span>
+                </li>
+              </ul>
+            </div>
+            
+            {/* Welcome Offers */}
+            <div>
+              <h3 className="text-md font-semibold mb-3">Welcome Offers</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Bonus Club Vistara Points upon activation</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Joining Fee Waiver</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Complimentary Lounge Access</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Cards Grid - Right Column */}
+          <div className="lg:col-span-9 z-50">
+            {loading ? (
+              <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+              </div>
+            ) : error ? (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                {error}
+              </div>
+            ) : filteredCards.length === 0 ? (
+              <div className="bg-white rounded-xl shadow-md p-8 text-center">
+                <p className="text-gray-600">No cards match your selected filters</p>
+                <button 
+                  onClick={() => setSelectedBanks([])} 
+                  className="mt-4 text-blue-600 hover:underline"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {filteredCards.map((card, index) => (
+                  <div key={card.id || index} className="bg-white rounded-xl shadow-md overflow-hidden">
+                    {/* Card Header */}
+                    <div className="p-6">
+                      <div className="flex flex-col md:flex-row gap-6">
+                        {/* Card Image */}
+                        <div className="flex-shrink-0">
+                          <img
+                            src={card.image || "https://www.cardexpert.in/wp-content/uploads/2020/10/axis-bank-ace-credit-card-1.jpg"}
+                            alt={card.cardName}
+                            className="w-64 h-40 object-contain rounded-lg"
+                          />
+                        </div>
+                        
+                        {/* Card Info */}
+                        <div className="flex-grow">
+                          <h2 className="text-xl font-bold text-indigo-900">{card.cardName}</h2>
+                          <p className="text-indigo-900 mb-4">{card.cardSlug}</p>
+                          <p className="text-sm text-indigo-900 mb-4">
+                            Elevate your travel experience with exclusive Vistara airline privileges and accelerated rewards on every journey.
+                          </p>
+                          
+                          <div className="flex flex-wrap gap-3 ">
+                            <button className="bg-indigo-900 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition">
+                              Apply Now
+                            </button>
+                            <button className="border border-indigo-900 text-indigo-900 px-4 py-2 rounded-md text-sm hover:bg-blue-50 transition">
+                              Check Eligibility
+                            </button>
+                          </div>
+                        </div>
+                        
+                        {/* Rating */}
+                        <div className="flex-shrink-0 flex flex-col items-end ">
+                          <div className="mb-4">
+                            <p className="font-bold text-gray-900 text-sm">MoneyBIP Rating</p>
+                            <StarRating rating={card.moneybipRating || 4.5} />
+                          </div>
+                          <label className="flex items-center gap-2 text-sm text-gray-900">
+                            <input type="checkbox" className="accent-blue-600" />
+                            Add to Compare
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Features Section */}
+                    <div className="border-t px-6 py-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="md:col-span-2">
+                          <h3 className="text-lg font-bold text-gray-800 mb-3">Features</h3>
+                          <ul className="list-disc text-sm text-black font-medium  pl-5">
+                            <li>Vistara Privileges: Enjoy complimentary Club Vistara Silver membership, airport lounge access</li>
+                            <li>Accelerated Rewards: Earn Club Vistara Points on every spend</li>
+                            <li>Welcome Benefits: Complimentary Club Vistara Base Points</li>
+                            <li>Travel and Lifestyle Benefits: Discounts on dining, hotel bookings</li>
+                            <li>Milestone Rewards: Earn bonus Club Vistara Points</li>
+                          </ul>
+                        </div>
+                        
+                        <div className="border-l pl-6">
+                          <div className="mb-4">
+                            <p className="text-gray-600 font-bold">Annual Fees</p>
+                            <p className="text-xl font-bold text-gray-900">₹{card.annualFee || "1,500"}</p>
+                          </div>
+                          <div className="mb-4">
+                            <p className="text-gray-600 font-bold">Joining Fees</p>
+                            <p className="text-xl font-bold text-gray-900">{card.joiningFee || "No Cost"}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-600 font-bold">Recommended Credit Score</p>
+                            <p className="text-xl font-bold text-gray-900">{card.creditScoreMin || "550"}-{card.creditScoreMax || "600"}</p>
+                            <a href="#" className="text-blue-600 text-sm hover:underline">Check your credit score here</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Welcome Offers */}
+                    <div className="border-t px-6 py-4 bg-white">
+                      <h3 className="text-lg font-bold text-gray-800 mb-3">Welcome Offers</h3>
+                      <p className="text-sm text-gray-700 mb-3">
+                        While specific welcome offers may change over time, typical welcome benefits include:
+                      </p>
+                      <ul className="list-disc text-sm text-black font-medium pl-5">
+                        <li>Bonus Club Vistara Points upon card activation</li>
+                        <li>Joining Fee Waiver</li>
+                        <li>Complimentary Lounge Access</li>
+                        <li>Additional Rewards on Initial Spends</li>
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-
-
-        {/* Credit Card Info */}
-
-         
-
-   {cards.map((item,indexs)=>(
-    
-         <div className="bg-white rounded-2xl shadow col-span-1 lg:col-span-3 p-6 space-y-6" key={item.id}> 
-         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-           <div className="grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3  md:col-span-2 ">
-<div className="flex justify-center md:justify-start ">
-<img
-src="https://www.cardexpert.in/wp-content/uploads/2020/10/axis-bank-ace-credit-card-1.jpg"
-alt="Card"
-className="w-80 lg:w-68 lg:h-45 h-auto xl:h-auto rounded-xl"
-/>
-</div>
-<div className="flex flex-col justify-between space-y-2">
-<div>
-<h2 className="text-md md:text-xl lg:text-lg xl:text-[18px] font-bold text-indigo-900 mt-4 md:mt-1">
-{item.cardName}
-</h2>
-<p className="text-md md:text-lg text-indigo-900 mt-1">{item.cardSlug}</p>
-<p className="text-indigo-900 mt-2 text-[10px] xl:text-[11px] font-medium">
-Elevate your travel experience with the Axis Bank Club Vistara Credit Card, offering exclusive Vistara airline privileges and accelerated rewards on every journey. Seamlessly blend luxury and convenience with a card designed for the
-discerning traveler.
-</p>
-</div>
-<div className="mt-2 flex flex-wrap gap-2">
-<button className="bg-indigo-900 text-white px-4 py-2 rounded-md text-sm">Apply Now</button>
-<button className="border border-indigo-900 text-indigo-900 px-4 py-2 rounded-md text-sm">Check Eligibility</button>
-</div>
-</div>
-
-<div className='hidden md:block xl:hidden'>
-
-</div>
-<div className="flex flex-col  items-end max-w-sm p-2 md:p-7">
-<div>
-<p className="font-bold text-indigo-900 text-sm md:text-lg">MoneyBIP Rating</p>
-<div className="text-yellow-400 text-xl md:text-2xl"> <StarRating rating={item.moneybipRating || 0} /></div>
-</div>
-<label className="flex items-center gap-2 text-sm lg:text-lg text-indigo-900 font-bold text-start md:mr-3 lg:mr-0">
-<input type="checkbox" className="accent-indigo-600 text-start" />
-Add to Compare
-</label>
-</div>
-</div>
-</div>
-<hr />
-<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 p-4">
-<div className="md:col-span-2 max-w-full">
-<h1 className="text-xl font-bold text-gray-800 mb-3">Features</h1>
-<ul className="list-disc font-semibold text-[12px] lg:text-[14px] text-gray-700 ml-2 ">
-<li>Vistara Privileges: Enjoy complimentary Club Vistara Silver membership, airport lounge access, and additional baggage allowance for an enhanced travel experience.</li>
-<li>Accelerated Rewards: Earn Club Vistara Points on every spend, and enjoy accelerated earning on Vistara and partner spends, bringing you closer to exciting rewards.</li>
-<li>Welcome Benefits: Experience a warm welcome with complimentary Club Vistara Base Points, making your card membership even more rewarding from the start.</li>
-<li>Travel and Lifestyle Benefits: Access exclusive travel and lifestyle privileges, including discounts on dining, hotel bookings, and more, amplifying your everyday experiences.</li>
-<li>Milestone Rewards: Earn bonus Club Vistara Points on achieving annual spending milestones, adding extra value to your card membership over time.</li>
-</ul>
-</div>
-<div className="border-l-2 pl-6 text-sm text-gray-700 w-full md:w-fit">
-<div>
-<p className="text-gray-600 font-bold">Annual Fees</p>
-<p className="text-xl font-bold text-black mt-1">₹ {item.annualFee}</p>
-</div>
-<div className="pt-4">
-<hr />
-<p className="text-gray-600 font-bold mt-2">joining fees</p>
-<p className="text-xl font-bold text-black mt-1">{item.joiningFee}</p>
-</div>
-<div className="pt-4">
-<hr />
-<p className="text-gray-600 font-bold mt-2">Recommended Credit Score</p>
-<p className="text-xl font-bold text-black mt-1">{item.creditScoreMin}-{item.creditScoreMax}</p>
-<a href="#" className="text-blue-500 text-sm hover:underline mt-3 block">Check your credit score here</a>
-</div>
-</div>
-</div>
-<hr />
-<div>
-<h3 className="font-bold text-black text-lg mb-5">Welcome Offers</h3>
-   <p className='font-semibold text-[12px] md:text-[14px]'>While specific welcome offers may change over time, typical welcome benefits for credit cards like the Axis Bank Club Vistara Credit Card might include:</p>
-   <ul className="list-disc text-[12px] md:text-[14px] text-gray-700 mt-2 ml-4 md:ml-10 font-semibold">
-  <li>Bonus Club Vistara Points: Receive a welcome bonus of Club Vistara Points upon card activation, giving you an instant boost toward exciting travel rewards.</li>
-<li>Joining Fee Waiver: Enjoy the privilege of having the joining fee waived as part of the welcome offer, providing a cost-effective introduction to the card.</li>
-    <li>Complimentary Lounge Access: Access airport lounges for free during the initial months, adding a touch of luxury to your travels right from the start.</li>
-     <li>Additional Rewards on Initial Spends: Earn extra rewards or points for meeting specific spending thresholds in the first few months after card issuance.</li>
-</ul>
- </div>
-</div>
-   ))}
-
-
-
-
-
-        
       </div>
     </div>
   );

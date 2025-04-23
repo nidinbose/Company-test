@@ -57,17 +57,17 @@ const FormContainer = () => {
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
   const steps = [
-    { id: 1, name: 'Card 1', component: 'component1' },
-    { id: 2, name: 'Criteria Form', component: 'component2' },
+    { id: 1, name: 'Offer information', component: 'component1' },
+    { id: 2, name: 'Criteria', component: 'component2' },
     { id: 3, name: 'Card 3', component: 'component3' },
     { id: 4, name: 'Card 4', component: 'component4' },
     { id: 5, name: 'Review & Submit', component: 'component5' },
   ];
 
   return (
-    <div className="flex min-h-screen">
-      {/* Navigation Sidebar */}
-      <aside className="w-64 bg-gray-50 p-5 border-r border-gray-200 hidden">
+    <div className="flex min-h-full">
+ 
+      <aside className="w-64 bg-gray-50 p-5 border-r border-gray-200 hidden lg:block">
         <h3 className="text-lg font-medium text-gray-900 mb-5">Form Progress</h3>
         <ul className="space-y-2">
           {steps.map((step) => (
@@ -96,8 +96,7 @@ const FormContainer = () => {
         </ul>
       </aside>
 
-      {/* Main Form Content */}
-      <div className="flex-1 p-6">
+        <div className="flex-1 p-6">
         {submitSuccess ? (
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
             <h2 className="text-2xl font-bold text-green-800 mb-2">Form submitted successfully!</h2>
