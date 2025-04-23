@@ -108,7 +108,7 @@ const Card1 = ({ data, updateData, nextStep }) => {
   >
     <h2 className="text-xl font-semibold text-gray-800 mb-4">Offer Information</h2>
 
-    {/* Image Upload */}
+  
     <h1 className="font-semibold mb-3 text-xl">Card image</h1>
     <div
       className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center mb-6 bg-gray-50 max-w-md w-full"
@@ -193,9 +193,9 @@ const Card1 = ({ data, updateData, nextStep }) => {
         </select>
       </div>
 
-      {[{ id: 'categoryName', label: 'Category Name *', options: ['Select Category', 'Category 1', 'Category 2'] },
-        { id: 'providerName', label: 'Provider Name *', options: ['Select Provider', 'Provider 1', 'Provider 2'] },
-        { id: 'service', label: 'Service *', options: ['Select Service', 'Service 1', 'Service 2'] }].map(
+      {[{ id: 'categoryName', label: 'Category Name *', options: ['Select Category', 'Traval', 'Business'] },
+        { id: 'providerName', label: 'Provider Name *', options: ['Select Provider', 'SBI', 'IDFC'] },
+        { id: 'service', label: 'Service *', options: ['Select Service', 'Paid', 'Fastag'] }].map(
         ({ id, label, options }) => (
           <div key={id}>
             <label htmlFor={id} className="block text-sm font-medium text-gray-700">
