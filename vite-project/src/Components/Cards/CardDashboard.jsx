@@ -89,7 +89,7 @@ const Admin = () => {
               <nav className="mt-10 space-y-2">
                 <SidebarLink to="/admin" Icon={LuLayoutDashboard} label="Manage links" onClick={closeMobileMenu} />
                 <SidebarLink to="/admin/productslist" Icon={BiPackage} label="Reports" onClick={closeMobileMenu} />
-                <SidebarLink to="/admin/orderlists" Icon={GiShoppingCart} label="Manage Accounts" onClick={closeMobileMenu} />
+                <SidebarLink to="/admin/orderlists" Icon={FaUserFriends} label="Manage Accounts" onClick={closeMobileMenu} />
                 <SidebarLink to="/admin/userlists" Icon={FaUserFriends} label="Activitylog" onClick={closeMobileMenu} />
                 <SidebarLink to="/admin/sales" Icon={FcSalesPerformance} label="Settings" onClick={closeMobileMenu} />
                 <SidebarLink to="/admin/coup" Icon={FaTags} label="Realise notes" onClick={closeMobileMenu} />
